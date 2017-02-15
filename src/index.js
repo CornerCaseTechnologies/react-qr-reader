@@ -191,6 +191,9 @@ module.exports = class Reader extends Component {
       const imageData = ctx.getImageData(0, 0, width, height)
       // Send data to web-worker
       this.worker.postMessage(imageData)
+    } else {
+      //If no preview, chedule another check
+      this.timeout = setTimeout(this.check, this.props.delay)
     }
   }
   handleWorkerMessage(e) {
